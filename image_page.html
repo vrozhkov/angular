@@ -1,0 +1,33 @@
+<div ng-include="'modules/home/component/navbar/navbar.html'"></div>
+<div>
+    <div class="text-center" ><h1>Click anywhere on your image and start adding edits</h1></div>
+    <div>
+        <div  id="icon" class="container upload">
+            <i ng-show="true" class="fa fa-spinner fa1 fa-pulse fa-5x fa-fw margin-bottom"></i>
+        </div>
+        <div id="img_div" class="imageDiv" >
+            <a class="btn btn-icon btn-circle btn-lg btng" ng-click="deleteImage()"><i class="fa fa-times"></i></a>
+            <img   id="img"  ng-click="mouseclick($event)" ng-src="{{photoUpload.image}}" class="image">
+            <div  ng-repeat="marker in markers" >
+                <span class="icon"  data-toggle="tooltip" ng-click="open(marker.x,marker.y,marker.id)"  style="top:{{marker.y+'%'}}; left:{{marker.x+'%'}};background-color:{{marker.color}};" >
+                    <i class="icon-camera"></i>
+                </span>
+                <div ng-if="marker.show == 'true'" id="{{marker.id}}"  style="left:{{marker.x+'%'}}; top:{{marker.y-3+'%'}};">
+                    <div  style="top:{{marker.top +'px'}};-moz-transform: scaleY({{marker.scaleY}});-o-transform: scaleY({{marker.scaleY}});-webkit-transform: scaleY({{marker.scaleY}});transform: scaleY({{marker.scaleY}});">  </div>
+                    <div id="div" class="comment" style="left:{{marker.left + 'px'}}; right:{{marker.right + 'px'}}; top:{{marker.topcoment + 'px'}}">
+                        <form name="form" ng-submit="save(marker.x,marker.y,marker.id)"  class="margin-bottom-0" role="form">
+                            <p><input autocomplete="off"  type="text" id="test" ng-enter="save(marker.x,marker.y,marker.id)" ng-model="marker.comment" value="marker.comment" ng-change="change()"  class="form-control input" placeholder="What would you like done? Click to start writing" init-focus required></p>
+                            <button  class="btn btn-danger m-r-5 m-b-5" ng-click="delete(marker.x,marker.y,marker.id)">Discard</button>
+                            <button   ng-if="edits==true && marker.color == '#027C81'" class="btn btn-warning m-r-5 m-b-5" ng-click="discard(marker.x,marker.y,marker.id,marker.id)">Discard edits</button>
+                            <button  class="btn btn-success m-r-5 m-b-5" data-backdrop="static"  data-keyboard="false" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="button" class="container text-center">
+        <button class="btn btn-success m-r-5 m-b-5" ng-click="submit()">Submit</button>
+    </div>
+    <div ng-include="'modules/home/component/footer/footer.html'"></div>
+</div>
